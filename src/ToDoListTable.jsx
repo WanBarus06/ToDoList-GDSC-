@@ -8,11 +8,7 @@
 
     function ToDoListTable() {
         const [tasks, setTasks] = useState([]);
-        const [filteredTasks, setFilteredTasks] = useState({
-            checked: [],
-            unchecked: [],
-            all: []
-        });
+        const [filteredTasks, setFilteredTasks] = useState([]);
         const [originalTasks, setOriginalTasks] = useState([]);
         const [showFirstComponent, setShowFirstComponent] = useState(true);
         const [editedTask, setEditedTask] = useState();
