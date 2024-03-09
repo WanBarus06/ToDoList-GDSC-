@@ -8,7 +8,11 @@
 
     function ToDoListTable() {
         const [tasks, setTasks] = useState([]);
-        const [filteredTasks, setFilteredTasks] = useState([]);
+        const [filteredTasks, setFilteredTasks] = useState({
+            checked: [],
+            unchecked: [],
+            all: []
+        });
         const [originalTasks, setOriginalTasks] = useState([]);
         const [showFirstComponent, setShowFirstComponent] = useState(true);
         const [editedTask, setEditedTask] = useState();
@@ -24,16 +28,19 @@
 
         const handleEditTask2 = (editedTask) => {
             if (editedTask) {
-              const updatedTasks = tasks.map(task =>
-                task.id === editedTask.id ? editedTask : task
-              );
-              setTasks(updatedTasks);
-              setOriginalTasks(updatedTasks);
-              setFilteredTasks(updatedTasks)
-              setEditedTask(null); 
-
+                const updatedTasks = tasks.map(task =>
+                    task.id === editedTask.id ? editedTask : task
+                );
+                setTasks(updatedTasks);
+                const updatedOriginalTasks = originalTasks.map(task =>
+                    task.id === editedTask.id ? editedTask : task
+                );
+                setOriginalTasks(updatedOriginalTasks);
+        
+                setEditedTask(null);
             }
-          };
+        };
+        
 
         const addTask = (newTask) => {
             const newIdTask = { ...newTask, id: uuidv4(), checked: false };
@@ -44,6 +51,7 @@
         const deleteTask = (index) => {
             const updatedTasks = tasks.filter((_, i) => i !== index);
             setTasks(updatedTasks);
+            setOriginalTasks(updatedTasks);
         };
 
         const toggleCheck = (taskID) => {
